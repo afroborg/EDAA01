@@ -12,13 +12,11 @@ public class GeneralWordCounter implements TextProcessor {
     }
 
 
-    @Override
     public void process(String w) {
         if(!stopwords.contains(w))
             words.put(w, (words.getOrDefault(w, 0)) + 1);
     }
 
-    @Override
     public void report() {
 /*
         for (String w : this.words.keySet()) {

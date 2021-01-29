@@ -15,20 +15,20 @@ Sorteringen är på fel håll, den går från lägsta till högsta istället fö
 assignJob-metoden i Machine.java definierar om scheduleTime-attributet istället för att öka det varje gång en ett nytt jobb skapas.
 
 #F3
-En prioriteringslista, eller PriorityQueue
+En prioriteringslista (PriorityQueue)
 
 #F4
 a)
-- 18
+- 20
 -  ja
 
 b)
-- 9
-- ja
+- 10
+- nej
 
 c) 
 - <String, Integer>
-- 12
+- 7
 
 d) containsKey()
 

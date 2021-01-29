@@ -31,7 +31,7 @@ public class GeneralWordCounter implements TextProcessor {
 
         wordList.sort(new WordCountComparator());
 
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < 20; i++) {
             Map.Entry<String, Integer> entry = wordList.get(i);
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }

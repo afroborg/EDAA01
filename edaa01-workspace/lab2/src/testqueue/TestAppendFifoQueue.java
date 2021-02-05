@@ -57,8 +57,12 @@ class TestAppendFifoQueue {
 	
 	@Test
 	void twoNonEmpty() {
+		q1.offer(1);
+		q2.offer(2);
 		q1.append(q2);
-		assertTrue(q1.isEmpty(), "Queue should be empty");
+		
+		assertFalse(q1.isEmpty(), "Queue should be empty");
+		assertEquals(2, q1.size());
 		assertTrue(q2.isEmpty(), "Queue should be empty");
 	}
 	

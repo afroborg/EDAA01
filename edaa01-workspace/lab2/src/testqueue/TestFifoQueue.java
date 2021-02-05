@@ -21,7 +21,7 @@ class TestFifoQueue {
 	private Queue<String> myStringQueue;
 
 	@BeforeEach
-	void setUp() {
+	void setUp() {	
 		myIntQueue = new FifoQueue<Integer>();
 		myStringQueue = new FifoQueue<String>();
 	}

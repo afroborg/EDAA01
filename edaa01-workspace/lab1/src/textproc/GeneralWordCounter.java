@@ -36,4 +36,8 @@ public class GeneralWordCounter implements TextProcessor {
             System.out.println(entry.getKey() + ": " + entry.getValue());
         }
     }
+    
+    public List<Map.Entry<String, Integer>> getWordList() {
+    	return new ArrayList<>(this.words.entrySet());
+    }
 }

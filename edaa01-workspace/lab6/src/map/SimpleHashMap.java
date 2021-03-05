@@ -1,9 +1,25 @@
 package map;
 
+import java.util.Random;
+
 public class SimpleHashMap<K, V> implements Map<K, V> {
 	private static final double LOAD_FACTOR = 0.75;
 
 	private Entry<K, V>[] table;
+
+	public static void main(String[] args) {
+		final int NBR_OF_VALUES = 8;
+		Random rand = new Random();
+		
+		SimpleHashMap<Integer, Integer> map = new SimpleHashMap<Integer, Integer>(10);
+		
+		for (int i = 0; i < NBR_OF_VALUES; i++) {
+//			int rndNbr = rand.nextInt(200) - 100;
+			map.put(i, i);
+		}
+		
+		System.out.println(map.show());
+	}
 
 	/**
 	 * Constructs an empty hashmap with the default initial capacity (16) and the
@@ -39,7 +55,8 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 
 	@Override
 	public V put(K key, V value) {
-		Entry<K, V> temp = this.find(this.index(key), key);
+		int i = this.index(key);
+		Entry<K, V> temp = this.find(i, key);
 
 		V r = null;
 
@@ -50,23 +67,22 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 		}
 
 		else {
-			int i = this.index(key);
 			Entry<K, V> e = new Entry<>(key, value);
-			
-			// If indx is empty
+
+			// If index is empty
 			if (this.table[i] == null)
 				this.table[i] = e;
 
 			else {
 				// Get Entry for key
-				temp = this.table[index(key)];
+				temp = this.table[i];
 
 				// Go to end of entries
 				while (temp.next != null) {
 					temp = temp.next;
 				}
-				
-				//Add it to the end
+
+				// Add it to the end
 				temp.setNext(e);
 			}
 		}
@@ -84,41 +100,41 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 		@SuppressWarnings("unchecked")
 		K k = (K) key;
 		int idx = this.index(k);
-		
+
 		// Return null if table is empty
-		if(this.isEmpty()) {
+		if (this.isEmpty()) {
 			return null;
 		}
-		
+
 		// First value in table map
 		Entry<K, V> entry = table[idx];
-		
+
 		// Return null if no entry matches key
-		if(entry == null)
+		if (entry == null)
 			return null;
-		
+
 		// Check if its first value
-		if(entry.key.equals(k)) {
+		if (entry.key.equals(k)) {
 			table[idx] = entry.next;
 			return entry.value;
 		}
-		
+
 		// If not - loop through values to find it
 		Entry<K, V> prev = entry;
 		entry = entry.next;
-		
-		while(entry != null) {
-			if(entry.key.equals(k)) {
+
+		while (entry != null) {
+			if (entry.key.equals(k)) {
 				prev.next = entry.next;
 				return entry.value;
 			}
-			
+
 			prev = entry;
 			entry = entry.next;
 		}
-		
+
 		return null;
-		
+
 	}
 
 	@Override
@@ -148,11 +164,14 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 
 				// Loop through all keys in map
 				while (temp.next != null) {
-					str.append(i + "\t" + table[i].next.toString());
+					str.append("\t" + table[i].next.toString());
 					temp = temp.next;
 				}
 
 				str.append("\n");
+			}
+			else {
+				str.append(i + "\t null \n");
 			}
 		}
 
@@ -160,7 +179,8 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 	}
 
 	private int index(K key) {
-		return Math.abs(key.hashCode() % this.table.length);
+		int idx = key.hashCode() % table.length;
+		return idx < 0 ? (idx + table.length) : idx;
 	}
 
 	private Entry<K, V> find(int index, K key) {
@@ -179,26 +199,25 @@ public class SimpleHashMap<K, V> implements Map<K, V> {
 
 	}
 
-	//TODO: Fix
+	// TODO: Fix
 	@SuppressWarnings("unchecked")
 	private void rehash() {
 		// Save ref to current table
 		Entry<K, V>[] oldTable = this.table;
-		
+
 		// Double the length of current table
 		this.table = (Entry<K, V>[]) new Entry[this.table.length * 2];
 		
-		
 		// Loop through all old values
-		for(Entry<K, V> e : oldTable) {
-            Entry<K, V> entry = e;
-            
-            while(entry != null) {
-            	// Place them back using put logic
-            	this.put(entry.getKey(), entry.getValue());
-            	entry = entry.next;
-            }
-            
+		for (Entry<K, V> e : oldTable) {
+			Entry<K, V> entry = e;
+
+			while (entry != null) {
+				// Place them back using put logic
+				this.put(entry.getKey(), entry.getValue());
+				entry = entry.next;
+			}
+
 		}
 
 	}

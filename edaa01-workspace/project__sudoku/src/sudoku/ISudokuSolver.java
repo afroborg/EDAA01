@@ -31,21 +31,50 @@ public interface ISudokuSolver {
 	 */
 	public int getNumber(int r, int c);
 	
-	// TÃ¶mmer rutan r,c.
-	// IllegalArgumentException om fel vÃ¤rde pÃ¥ r eller c
+	/**
+	 * Empties the provided box by setting the value to zero
+	 * @param r
+	 * Row of box
+	 * @param c
+	 * Column of box
+	 * 
+	 * @throws
+	 * IllegalArgumentException 
+	 * 				if r or c is outside [0..getDimension()-1]
+	 */
 	public void clearNumber(int r, int c);
-	
-	// Kontrollerar om vÃ¤rdet nbr i rutan r,c Ã¤r ok enligt reglerna.
-	// IllegalArgumentException om fel vÃ¤rde pÃ¥ r, c eller nbr
+	/**
+	 * Checks whether the provided value 
+	 * can be placed in the provided column and row
+	 * @param r
+	 * 	The row
+	 * @param c
+	 * The column
+	 * @param nbr
+	 * The number to test
+	 * @return True if value is valid at that location
+	 * according to suodku rules
+	 * @throws IllegalArgumentException
+	 * 			if r, c or nbr is outside [0..getDimension()-1]
+	 */
 	public boolean isValid(int r, int c, int nbr);
 
-	// Kontrollerar att alla ifyllda siffrorna uppfyller reglerna.
+	/**
+	 * Checks every number to see if sudoku is valid 
+	 * 
+	 * @return true if all numbers are valid. 
+	 */
 	public boolean isAllValid();
 		
-	// FÃ¶rsÃ¶ker lÃ¶sa sudokut och returnerar true om det var lÃ¶sbart, annars false.
+	/**
+	 * Attempts to solve the sudoku recursively
+	 * @return true if sudoku was solved
+	 */
 	public boolean solve();
 		
-	// TÃ¶mmer alla rutorna i sudokut
+	/**
+	 * Empties all boxes by setting them to zero
+	 */
 	public void clear();
 		
 	/**

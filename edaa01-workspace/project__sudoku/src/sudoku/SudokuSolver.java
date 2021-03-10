@@ -2,13 +2,21 @@ package sudoku;
 
 public class SudokuSolver implements ISudokuSolver {
 
-	final static int EMPTY = 0;
-	final static int DEFAULT_SIZE = 9;
-	final static int[][] TEST_BOARD = { { 0, 0, 8, 0, 0, 9, 0, 6, 2 }, { 0, 0, 0, 0, 0, 0, 0, 0, 5 },
+	/**
+	 * Constants
+	 */
+	
+	private final static int EMPTY = 0;
+	private final static int DEFAULT_SIZE = 9;
+	private final static int[][] TEST_BOARD = { { 0, 0, 8, 0, 0, 9, 0, 6, 2 }, { 0, 0, 0, 0, 0, 0, 0, 0, 5 },
 			{ 1, 0, 2, 5, 0, 0, 0, 0, 0 }, { 0, 0, 0, 2, 1, 0, 0, 9, 0 }, { 0, 5, 0, 0, 0, 0, 6, 0, 0 },
 			{ 6, 0, 0, 0, 0, 0, 0, 2, 8 }, { 4, 1, 0, 6, 0, 8, 0, 0, 0 }, { 8, 6, 0, 0, 0, 0, 1, 0, 0 },
 			{ 0, 0, 0, 0, 0, 0, 4, 0, 0 } };
 
+	/**
+	 * Attribute
+	 */
+	
 	private int[][] board;
 
 	public SudokuSolver() {
@@ -69,6 +77,17 @@ public class SudokuSolver implements ISudokuSolver {
 
 		return result;
 	}
+	
+	/**
+	 * Checks if nbr is valid in the row
+	 * @param r
+	 * The row to check
+	 * @param c
+	 * The column to check
+	 * @param nbr
+	 * The number to verify
+	 * @return true if valid
+	 */
 
 	private boolean checkRow(int r, int nbr) {
 
@@ -82,6 +101,17 @@ public class SudokuSolver implements ISudokuSolver {
 
 		return true;
 	}
+	
+	/**
+	 * Checks if nbr is valid in the column
+	 * @param r
+	 * The row to check
+	 * @param c
+	 * The column to check
+	 * @param nbr
+	 * The number to verify
+	 * @return true if valid
+	 */
 
 	private boolean checkColumn(int c, int nbr) {
 
@@ -96,6 +126,17 @@ public class SudokuSolver implements ISudokuSolver {
 
 		return true;
 	}
+	
+	/**
+	 * Checks if nbr is valid in the grid
+	 * @param r
+	 * The row to check
+	 * @param c
+	 * The column to check
+	 * @param nbr
+	 * The number to verify
+	 * @return true if valid
+	 */
 
 	private boolean checkGrid(int r, int c, int nbr) {
 
@@ -138,6 +179,14 @@ public class SudokuSolver implements ISudokuSolver {
 		return solve(0, 0);
 	}
 
+	/**
+	 * Private helper method to recursivley try to solve the sudoku
+	 * @param r 
+	 * The row that is being tested
+	 * @param c
+	 * The column that is being tested
+	 * @return true if the sudoku is solved
+	 */
 	private boolean solve(int r, int c) {
 
 		int dim = this.getDimension();

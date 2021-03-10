@@ -14,7 +14,7 @@ public class SudokuView {
 	// Size of the inputs
 	final static int INPUT_SIZE = 50;
 
-	private SudokuSolver solver;
+	private ISudokuSolver solver;
 	private JPanel sudokuPanel;
 	private JTextField[][] fields;
 
@@ -24,7 +24,7 @@ public class SudokuView {
 	 * @param s SudokuSolver object
 	 */
 
-	public SudokuView(SudokuSolver s) {
+	public SudokuView(ISudokuSolver s) {
 		int dim = s.getDimension();
 		int size = dim * 100;
 		this.solver = s;
